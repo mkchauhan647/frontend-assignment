@@ -6,9 +6,10 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useContext } from "react"
 import { ProductContext } from "@/contexts/ProductContext"
+import { ToastContainer } from 'react-toastify';
 export const Home = () =>{
 
-    const {productlist,setProducts} = useContext(ProductContext);
+    const {productlist,setProducts,handleProductclick,setCartCount,cartCount,cartItems,setCartItems,cartAdd,cartRemove} = useContext(ProductContext);
     const router = useRouter();
 
     // const [products,setProducts] = useState([]);
@@ -28,12 +29,6 @@ export const Home = () =>{
     }, [])
 
 
-    const handleProductclick = (id) => {
-        // alert(`product clicked ${id}`)
-        console.log("Hello",id)
-        router.push(`/product/${id}`)
-
-    }
 
 
     return (
@@ -42,16 +37,29 @@ export const Home = () =>{
 
        <main className={styles.main}>
 
-        <h2 className={String(styles.heading + ' ' + "underlineeffect")}>Product List !!!</h2>
+        <h2 className={String(styles.heading + ' ' + "underlineeffect")}>Welcome to the Ecommerce Store</h2>
         <article className={styles.products}>
 
           {
             productlist && productlist.map((value)=>{
                 return (
-                    <section onClick={()=>handleProductclick(value.id)} key={value.id} className={styles.productdesc}>
-                    <Image src={value.image} width={200} height={200}  alt="noimage"/>
+                   <section  key={value.id} className={styles.productdesc}>
+                    {/* <p className={styles.cartbutton}>{value.category}</p>  */}
+                    
+                    <div className={styles.rating}>
+                     <div className={styles.stars}>
+                     <i className='fa-solid fa-star'></i>
+                     <p>{value.rating.rate} Count: {value.rating.count}</p>
+                     </div>
+                     <p>Category: {value.category}</p>
+                    </div>
+
+                    <Image onClick={()=>handleProductclick(value.id)} src={value.image} width={200} height={200}  alt="noimage"/>
                     <h2>{value.title}</h2>
+                    <p>${value.price}</p>
+                    {cartItems.includes(value.id) ? <button className={styles.cartbutton} onClick={()=>cartRemove(value.id)} >Remove from cart</button> : <button className={styles.cartbutton} onClick={()=>cartAdd(value.id)}>Add to cart</button>}
                 </section>
+                   
                 )
             })
           }
@@ -109,6 +117,7 @@ export const Home = () =>{
         </article>
 
 
+        <ToastContainer/>
 
 
        </main>

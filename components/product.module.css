@@ -44,3 +44,36 @@
     /* font-weight: 200; */
 
 }
+
+.cartbutton{
+    width: 100%;
+    margin-top: 16px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8e27279c;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.checktextcolor{
+    color: var(--text-color);
+}
+
+
+.rating{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  color: var(--fav-color);
+  margin-bottom: 16px;
+}
+
+.stars{
+     display: flex;
+    gap: 5px;
+    align-items: center;
+   width:100%;
+}
